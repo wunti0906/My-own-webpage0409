@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UCAN 診斷結果 - {{ data.name }}</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", sans-serif; background-color: #f4f7f6; padding: 20px; line-height: 1.6; margin: 0; }
+        .container { max-width: 900px; margin: 40px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #e3f2fd; padding-bottom: 15px; margin-top: 0; }
+        
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #fafafa; padding: 15px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #eee; }
+        
+        .result-box { background: #e3f2fd; padding: 25px; border-radius: 12px; text-align: center; margin-bottom: 30px; border: 1px solid #bbdefb; }
+        .code-title { font-size: 1.1em; color: #1976d2; margin-bottom: 10px; font-weight: bold; }
+        .code-value { font-size: 3.5em; font-weight: bold; color: #0d47a1; letter-spacing: 15px; margin: 10px 0; }
+        
+        .section-title { color: #2e7d32; border-left: 6px solid #2e7d32; padding-left: 15px; margin: 35px 0 15px; font-size: 1.4em; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; }
+        th, td { border: 1px solid #ddd; padding: 15px; text-align: center; }
+        th { background-color: #f8f9fa; color: #555; }
+        .high-score { color: #d32f2f; font-weight: bold; font-size: 1.1em; }
+
+        .desc-block { background: #fffde7; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #fbc02d; }
+        .btn-back { display: block; width: 120px; margin: 40px auto 0; text-align: center; padding: 12px; background: #37474f; color: white; text-decoration: none; border-radius: 5px; transition: background 0.3s; }
+        .btn-back:hover { background: #546e7a; }
+        
+        @media (max-width: 600px) {
+            .info-grid { grid-template-columns: 1fr; }
+            .code-value { font-size: 2.5em; letter-spacing: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>大專校院就業職能平台 (UCAN)</h1>
+    <h3 style="text-align: center; color: #666; margin-top: -10px;">職業興趣探索診斷結果</h3>
+
+    <div class="info-grid">
+        <div><strong>姓名：</strong> {{ data.name }}</div>
+        <div><strong>施測日期：</strong> {{ data.date }}</div>
+        <div><strong>學校：</strong> 靜宜大學</div>
+        <div><strong>系級：</strong> 資訊管理學系</div>
+    </div>
+
+    <div class="result-box">
+        <div class="code-title">您的職業性格代碼</div>
+        <div class="code-value">{{ data.code }}</div>
+        <p style="font-size: 1.2em;"><strong>{{ ' 、 '.join(data.types) }}</strong></p>
+    </div>
+
+    <h2 class="section-title">職涯類型興趣強度 (前四名)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>職涯類型</th>
+                <th>興趣強度分數</th>
+                <th>全體 PR 值</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data.top_clusters %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td class="high-score">{{ item.score }}</td>
+                <td>{{ item.pr }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2 class="section-title">職業性格解析</h2>
+    <div class="desc-block">
+        <strong>E 企業型 (7分)：</strong> 典型的「說服者」，喜歡領導、規劃，充滿幹勁與自信，希望表現受他人肯定。
+    </div>
+    <div class="desc-block">
+        <strong>C 事務型 (6分)：</strong> 典型的「文書者」，個性謹慎，講求規矩與精確，擅長按部就班處理資料。
+    </div>
+    <div class="desc-block">
+        <strong>I 研究型 (6分)：</strong> 典型的「思辨者」，善於觀察與推理，喜歡運用頭腦解決複雜問題。
+    </div>
+
+    <a href="/" class="btn-back">← 返回首頁</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人網頁 - {{ info.name }}</title>
+    <style>
+        body { 
+            font-family: "Microsoft JhengHei", sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #fff; 
+            color: #333; 
+        }
+
+        /* 頂端輪播區域 */
+        .carousel-container {
+            width: 100%; 
+            height: 450px; 
+            position: relative; 
+            overflow: hidden; 
+            color: white; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .slide {
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            background-size: cover; 
+            background-position: center;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            padding: 0 100px;
+            opacity: 0; 
+            animation: slideFade 15s infinite;
+        }
+
+        /* 輪播動畫邏輯 */
+        @keyframes slideFade { 
+            0%, 100% { opacity: 0; } 
+            5%, 33% { opacity: 1; } 
+            38% { opacity: 0; } 
+        }
+        .slide:nth-child(1) { animation-delay: 0s; }
+        .slide:nth-child(2) { animation-delay: 5s; }
+        .slide:nth-child(3) { animation-delay: 10s; }
+
+        /* 中間介紹區域 (可點擊) */
+        .intro-section {
+            display: flex; 
+            justify-content: space-around; 
+            padding: 60px 10%; 
+            gap: 30px;
+        }
+
+        .intro-link {
+            flex: 1; 
+            text-align: center; 
+            text-decoration: none; 
+            color: inherit; 
+            transition: transform 0.3s ease;
+        }
+
+        .intro-link:hover { 
+            transform: scale(1.08); 
+        }
+
+        .circle-img {
+            width: 160px; 
+            height: 160px; 
+            border-radius: 50%; 
+            margin: 0 auto 20px; 
+            overflow: hidden;
+            border: 5px solid #f0f0f0; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .circle-img img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+
+        /* 下方卡片連結區 */
+        .card-container {
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 25px; 
+            max-width: 1100px; 
+            margin: 0 auto 50px; 
+            padding: 0 20px;
+        }
+
+        .card { 
+            border-radius: 12px; 
+            display: flex; 
+            overflow: hidden; 
+            min-height: 180px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+            text-decoration: none; 
+            color: inherit; 
+            transition: box-shadow 0.3s;
+        }
+
+        .card:hover { box-shadow: 0 8px 12px rgba(0,0,0,0.15); }
+        .bg-blue { background-color: #e3f2fd; }
+        .bg-orange { background-color: #fff3e0; }
+
+        .card-content { padding: 25px; flex: 1; }
+        .card-image-side { 
+            background-color: #37474f; 
+            color: white; 
+            width: 120px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            padding: 15px; 
+            font-size: 0.85em; 
+        }
+
+        .footer { 
+            text-align: center; 
+            padding: 40px; 
+            color: #888; 
+            background: #fafafa; 
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頂端自動輪播圖 -->
+    <div class="carousel-container">
+        {% for i in range(3) %}
+        <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('{{ url_for('static', filename=info.photos[i]) }}');">
+            <h2>{{ info.slides_text[i] }}</h2>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- 中間三個圓形點擊區 -->
+    <div class="intro-section">
+        <!-- 自我介紹：使用 photo.jpeg -->
+        <a href="/intro" class="intro-link">
+            <div class="circle-img">
+                <img src="{{ url_for('static', filename='photo.jpeg') }}" alt="自我介紹">
+            </div>
+            <h2>自我介紹</h2>
+            <p>點擊了解更多關於我的故事</p>
+        </a>
+
+        <!-- 未來規劃：使用 photo4.jpeg -->
+        <a href="/future" class="intro-link">
+            <div class="circle-img">
+                <img src="{{ url_for('static', filename='photo4.jpeg') }}" alt="未來規劃">
+            </div>
+            <h2>未來規劃</h2>
+            <p>關於我對職業生涯的藍圖</p>
+        </a>
+
+        <!-- 2026 清單：使用 photo3.jpeg -->
+        <a href="/list2026" class="intro-link">
+            <div class="circle-img">
+                <img src="{{ url_for('static', filename='photo3.jpeg') }}" alt="2026 清單">
+            </div>
+            <h2>2026 清單</h2>
+            <p>那些即將在 2026 實現的目標</p>
+        </a>
+    </div>
+
+    <!-- 下方矩形卡片連結區 -->
+    <div class="card-container">
+        <a href="/holland" class="card bg-blue">
+            <div class="card-content">
+                <h4 style="color: #1976d2; margin-top: 0;">興趣測驗結果</h4>
+                <h2 style="margin: 10px 0;">何倫碼：企業、事務、研究</h2>
+                <span style="color: #1976d2; font-weight: bold;">繼續閱讀 →</span>
+            </div>
+            <div class="card-image-side">探索<br>職業性格</div>
+        </a>
+
+        <a href="#" class="card bg-orange">
+            <div class="card-content">
+                <h4 style="color: #e65100; margin-top: 0;">職業目標</h4>
+                <h2 style="margin: 10px 0;">專案經理 (PM)</h2>
+                <span style="color: #e65100; font-weight: bold;">繼續閱讀 →</span>
+            </div>
+            <div class="card-image-side">目標<br>職位介紹</div>
+        </a>
+    </div>
+
+    <div class="footer">
+        &copy; 2026 By {{ info.name }} | {{ info.student_id }} {{ info.class }}
+    </div>
+
+</body>
+</html>
