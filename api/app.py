@@ -20,6 +20,19 @@ def index():
     }
     return render_template('index.html', info=data)
 
+@app.route('/intro')
+def intro():
+    person_info = {
+        "name": "林彣媞",
+        "department": "資訊管理學系",
+        "class": "資管二B",
+        "student_id": "411312537",
+        "email": "wunti0906@gmail.com",
+        "skills": ["Python", "Flask", "網頁設計", "資料分析"],
+        "bio": "目前就讀靜宜資管系，原本對 PM 感興趣，現在致力於深化技術，轉向後端工程師之路。"
+    }
+    return render_template('intro.html', person=person_info)
+
 @app.route('/holland')
 def holland():
     holland_data = {
@@ -36,27 +49,13 @@ def holland():
     }
     return render_template('holland.html', data=holland_data)
 
-@app.route('/intro')
-def intro():
-    person_info = {
-        "name": "林彣媞",
-        "department": "資訊管理學系",
-        "class": "資管二B",
-        "student_id": "411312537",
-        "email": "wunti0906@gmail.com",
-        "skills": ["Python", "Flask", "網頁設計", "資料分析"],
-        "bio": "目前就讀靜宜資管系，對於專案管理與後端開發充滿興趣，致力於成為一名優秀的專案經理 (PM)。"
-    }
-    return render_template('intro.html', person=person_info)
-
 @app.route('/future')
 def future():
     wanin_data = {
         "company_name": "網銀國際股份有限公司",
         "industry": "遊戲軟體研發 / 數位內容 / 科技創新",
         "focus_areas": ["行動遊戲開發", "電競賽事發展", "第三方支付應用", "區塊鏈技術應用"],
-        "philosophy": "科技創新、永續經營、回饋社會",
-        "career_connection": "作為資管系學生，網銀國際提供的技術開發、數據分析與專案管理職位是完美的職涯接軌目標。"
+        "philosophy": "科技創新、永續經營、回饋社會"
     }
     return render_template('future.html', wanin=wanin_data)
 
@@ -64,11 +63,23 @@ def future():
 def list2026():
     goals = [
         {"title": "雅思 (IELTS) 檢定", "desc": "達到平均 7.0 分以上，為出國交換或進修做準備。", "status": "準備中"},
-        {"title": "考取汽車駕照", "desc": "完成駕訓班課程並取得駕照，提升生活移動的便利性。", "status": "計畫中"},
-        {"title": "專案管理實習", "desc": "尋找與 PM 相關的實習機會，累積實務經驗。", "status": "待執行"}
+        {"title": "看100本書籍", "desc": "廣泛閱讀提升知識廣度與深度，達成一年內閱讀 100 本書籍的目標。", "status": "計畫中"},
+        {"title": "實習", "desc": "尋找軟體開發實習，累積實際專案撰寫經驗。", "status": "待執行"}
     ]
     return render_template('list2026.html', goals=goals)
 
+@app.route('/career')
+def career():
+    career_info = {
+        "title": "資管人的研發之路：邁向軟體工程師",
+        "target_company": "網銀國際 (Wanin Industries)",
+        "connection_points": [
+            {"topic": "數據與後端架構", "desc": "資管系的資料庫管理與網銀的遊戲伺服器穩定性息息相關。"},
+            {"topic": "數位金融與支付", "desc": "網銀支付系統是資管系金融科技課程的最佳實踐場景。"},
+            {"topic": "技術開發的決心", "desc": "從理解業務邏輯轉向親手撰寫穩定代碼的後端工程師。"}
+        ]
+    }
+    return render_template('career.html', career=career_info)
+
 if __name__ == '__main__':
-    # 這裡使用 5001 埠號以避開 Mac 系統衝突
     app.run(debug=True, port=5001)

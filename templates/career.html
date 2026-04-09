@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8"><title>職業目標</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", sans-serif; line-height: 1.6; background: #f9f9f9; padding: 40px 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h1 { color: #e65100; text-align: center; }
+        .box { background: #fff3e0; padding: 20px; margin: 20px 0; border-left: 5px solid #ff9800; }
+        .btn { display: block; width: 100px; margin: 20px auto; text-align: center; padding: 10px; background: #333; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ career.title }}</h1>
+        <p>作為資管系學生，我發現技術的實踐力是推動企業創新的核心。以下是我選擇網銀國際並立志成為工程師的原因：</p>
+        {% for item in career.connection_points %}
+        <div class="box">
+            <strong>{{ item.topic }}：</strong> {{ item.desc }}
+        </div>
+        {% endfor %}
+        <p>不只是寫程式，更要懂產品。練習從產品經理的角度思考『為什麼要做』，再用技術實力把功能做出來。</p>
+        <a href="/" class="btn">返回首頁</a>
+    </div>
+</body>
+</html>
