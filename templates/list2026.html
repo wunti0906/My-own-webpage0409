@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 目標清單 - {{ info.name if info else '林彣媞' }}</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", sans-serif; background: #f4f7f6; margin: 0; padding: 40px 20px; }
+        .list-container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        h1 { text-align: center; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 15px; }
+        .goal-item { display: flex; align-items: center; padding: 20px; border-bottom: 1px solid #eee; transition: background 0.3s; }
+        .goal-item:hover { background: #f9f9f9; }
+        .checkbox { width: 25px; height: 25px; border: 2px solid #3498db; border-radius: 5px; margin-right: 20px; flex-shrink: 0; }
+        .goal-text { flex-grow: 1; }
+        .goal-title { font-weight: bold; font-size: 1.2em; color: #333; margin: 0; }
+        .goal-desc { color: #7f8c8d; font-size: 0.9em; margin: 5px 0 0; }
+        .status { font-size: 0.8em; background: #e1f5fe; color: #0288d1; padding: 4px 10px; border-radius: 20px; font-weight: bold; }
+        .btn-back { display: block; width: 100px; margin: 30px auto 0; text-align: center; padding: 10px; background: #34495e; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="list-container">
+        <h1>2026 願景清單</h1>
+        {% for goal in goals %}
+        <div class="goal-item">
+            <div class="checkbox"></div>
+            <div class="goal-text">
+                <p class="goal-title">{{ goal.title }}</p>
+                <p class="goal-desc">{{ goal.desc }}</p>
+            </div>
+            <span class="status">{{ goal.status }}</span>
+        </div>
+        {% endfor %}
+        <a href="/" class="btn-back">返回首頁</a>
+    </div>
+</body>
+</html>

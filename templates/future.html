@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未來規劃 - 網銀國際介紹</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", sans-serif; background-color: #f0f2f5; margin: 0; padding: 40px 20px; line-height: 1.8; }
+        .future-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header-image {
+            width: 100%;
+            height: 300px;
+            background-color: #ff9800; /* 網銀國際企業色調 */
+            background-image: linear-gradient(135deg, #ff9800 0%, #e65100 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        .content { padding: 40px; }
+        h1 { color: #333; margin-top: 0; border-bottom: 2px solid #ff9800; padding-bottom: 10px; }
+        h2 { color: #e65100; margin-top: 30px; }
+        .info-card { background: #fff8f1; border-left: 5px solid #ff9800; padding: 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+        .btn-home {
+            display: block;
+            width: 150px;
+            margin: 30px auto 0;
+            padding: 12px;
+            background: #333;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+        .btn-home:hover { background: #555; }
+    </style>
+</head>
+<body>
+
+    <div class="future-container">
+        <div class="header-image">
+            <div>
+                <h1 style="color: white; border: none; margin: 0;">未來規劃與展望</h1>
+                <p style="font-size: 1.2em; opacity: 0.9;">探索數位內容領航者：{{ wanin.company_name }}</p>
+            </div>
+        </div>
+
+        <div class="content">
+            <h1>企業概覽</h1>
+            <p><strong>{{ wanin.company_name }}</strong> 是台灣著名的數位內容企業，總部位於台中大里。公司深耕遊戲領域多年，已成功轉型為全方位的數位科技集團。</p>
+            
+            <div class="info-card">
+                <strong>產業定位：</strong> {{ wanin.industry }}<br>
+                <strong>經營理念：</strong> {{ wanin.philosophy }}
+            </div>
+
+            <h2>主要發展領域</h2>
+            <ul>
+                {% for area in wanin.focus_areas %}
+                <li>{{ area }}</li>
+                {% endfor %}
+            </ul>
+
+            <h2>職涯契合度</h2>
+            <p>{{ wanin.career_connection }}</p>
+            <p>透過學習 <strong>Python/Flask</strong> 後端技術以及 <strong>專案管理</strong> 知識，我期望能進入如網銀國際這般的企業，參與高流量、高技術門檻的數位產品開發，實踐「讓夢想被實現」的初衷。</p>
+
+            <a href="/" class="btn-home">返回首頁</a>
+        </div>
+    </div>
+
+</body>
+</html>

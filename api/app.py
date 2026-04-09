@@ -1,61 +1,74 @@
+import os
 from flask import Flask, render_template
 
-# 修改這行
-app = Flask(__name__, template_folder="../templates", static_folder="../static")
+app = Flask(__name__, 
+            template_folder='../templates', 
+            static_folder='../static')
 
-# --- 路由 1：首頁 ---
 @app.route('/')
 def index():
-    # 這裡存放要傳送到 index.html 的首頁資訊
-    info_data = {
+    data = {
         "name": "林彣媞",
         "student_id": "411312537",
         "class": "資管二B",
-        # 輪播圖照片清單 (對應 static 資料夾內的檔名)
         "photos": ["photo.jpeg", "photo4.jpeg", "photo3.jpeg"],
-        # 輪播圖對應的文字
         "slides_text": [
             "夢想如果不付諸行動，永遠都只是一種空想與幻想。",
             "請在此為自己提供一個實踐夢想行動的動力。",
             "讓夢想可以被實現。"
         ]
     }
-    return render_template('index.html', info=info_data)
+    return render_template('index.html', info=data)
 
-# --- 路由 2：何倫碼 / UCAN 診斷結果頁 ---
 @app.route('/holland')
 def holland():
-    # 這裡存放 UCAN 診斷的詳細資料
-    ucan_data = {
+    holland_data = {
         "name": "林彣媞",
-        "date": "2024年09月02日",
+        "date": "2024/05/20",
         "code": "ECI",
-        "types": ["企業型 (E)", "事務型 (C)", "研究型 (I)"],
+        "types": ["企業型", "事務型", "研究型"],
         "top_clusters": [
-            {"name": "企業經營管理", "score": "3.80", "pr": "96"},
-            {"name": "教育與訓練", "score": "3.80", "pr": "91"},
-            {"name": "醫療保健", "score": "3.80", "pr": "95"},
-            {"name": "司法、法律與公共安全", "score": "3.20", "pr": "84"}
+            {"name": "企業管理", "score": 7.0, "pr": 85},
+            {"name": "資訊技術", "score": 6.0, "pr": 78},
+            {"name": "財務金融", "score": 6.0, "pr": 75},
+            {"name": "行銷企劃", "score": 5.5, "pr": 70}
         ]
     }
-    # 將資料傳送到 holland.html，變數名稱設為 data
-    return render_template('holland.html', data=ucan_data)
+    return render_template('holland.html', data=holland_data)
 
-# --- 路由 3：自我介紹詳細頁 (可選) ---
 @app.route('/intro')
 def intro():
-    return "<h1>自我介紹詳細內容</h1><p>這裡是林彣媞的詳細自我介紹頁面。</p><a href='/'>返回首頁</a>"
+    person_info = {
+        "name": "林彣媞",
+        "department": "資訊管理學系",
+        "class": "資管二B",
+        "student_id": "411312537",
+        "email": "wunti0906@gmail.com",
+        "skills": ["Python", "Flask", "網頁設計", "資料分析"],
+        "bio": "目前就讀靜宜資管系，對於專案管理與後端開發充滿興趣，致力於成為一名優秀的專案經理 (PM)。"
+    }
+    return render_template('intro.html', person=person_info)
 
-# --- 路由 4：未來規劃詳細頁 (可選) ---
 @app.route('/future')
 def future():
-    return "<h1>未來規劃詳細內容</h1><p>目標職位：專案經理 (PM)。</p><a href='/'>返回首頁</a>"
+    wanin_data = {
+        "company_name": "網銀國際股份有限公司",
+        "industry": "遊戲軟體研發 / 數位內容 / 科技創新",
+        "focus_areas": ["行動遊戲開發", "電競賽事發展", "第三方支付應用", "區塊鏈技術應用"],
+        "philosophy": "科技創新、永續經營、回饋社會",
+        "career_connection": "作為資管系學生，網銀國際提供的技術開發、數據分析與專案管理職位是完美的職涯接軌目標。"
+    }
+    return render_template('future.html', wanin=wanin_data)
 
-# --- 路由 5：2026 清單詳細頁 (可選) ---
 @app.route('/list2026')
 def list2026():
-    return "<h1>2026 願望清單</h1><p>1. 完成資管專題<br>2. 考取證照</p><a href='/'>返回首頁</a>"
+    goals = [
+        {"title": "雅思 (IELTS) 檢定", "desc": "達到平均 7.0 分以上，為出國交換或進修做準備。", "status": "準備中"},
+        {"title": "考取汽車駕照", "desc": "完成駕訓班課程並取得駕照，提升生活移動的便利性。", "status": "計畫中"},
+        {"title": "專案管理實習", "desc": "尋找與 PM 相關的實習機會，累積實務經驗。", "status": "待執行"}
+    ]
+    return render_template('list2026.html', goals=goals)
 
 if __name__ == '__main__':
-    # debug=True 可以在你修改程式碼存檔後，讓伺服器自動重新啟動
-    app.run(debug=True)
+    # 這裡使用 5001 埠號以避開 Mac 系統衝突
+    app.run(debug=True, port=5001)
